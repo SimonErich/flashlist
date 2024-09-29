@@ -1,5 +1,8 @@
 FROM --platform=$BUILDPLATFORM dart:3.2.5 AS build 
 
+# Pass this variablel to the docker build method with a base64 encoded version of the passwords file
+ARG PASSWORDS_YAML_FILE_BASE64
+
 # Resolve app dependencies.
 WORKDIR /app
 COPY /flashlist_server /app
@@ -22,7 +25,7 @@ COPY --from=build /app/web/ web/
 COPY --from=build /app/migrations/ migrations/
 
 # Copy passwords file
-COPY ./flashlist_server/config/passwords.yaml ./config/passwords.yaml
+RUN base64 -d <<< $PASSWORDS_YAML_FILE_BASE64 > ./config/passwords.yaml
 
 EXPOSE 8080
 EXPOSE 8081
