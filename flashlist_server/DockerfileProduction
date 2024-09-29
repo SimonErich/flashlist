@@ -25,7 +25,7 @@ COPY --from=build /app/web/ web/
 COPY --from=build /app/migrations/ migrations/
 
 # Copy passwords file
-RUN base64 -d <<< "${PASSWORDS_YAML_FILE_BASE64}" > ./config/passwords.yaml
+RUN ["/bin/bash", "-c", "bash < <(base64 -d <<< "${PASSWORDS_YAML_FILE_BASE64}" > ./config/passwords.yaml)"]
 
 EXPOSE 8080
 EXPOSE 8081
