@@ -29,6 +29,7 @@ RUN echo "${PASSWORDS_YAML_FILE_BASE64}" | base64 -d > ./config/passwords.yaml
 
 
 RUN ls ./config/
+RUN cat ./config/passwords.yaml
 
 EXPOSE 8080
 EXPOSE 8081
