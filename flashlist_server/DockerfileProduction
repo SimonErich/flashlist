@@ -12,6 +12,7 @@ RUN dart compile exe bin/main.dart -o bin/main
 
 # Copy passwords file
 RUN echo "${PASSWORDS_YAML_FILE_BASE64}" | base64 -d > ./config/passwords.yaml
+RUN echo "${CONFIG_PROD_ENV_YAML_FILE_BASE64}" | base64 -d > ./config/production.yaml
 
 FROM debian:buster-slim
 
